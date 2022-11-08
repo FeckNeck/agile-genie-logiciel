@@ -1,6 +1,7 @@
 package fr.icom.info.m1.balleauprisonnier_mvn;
 
 
+import javafx.geometry.BoundingBox;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
 import javafx.scene.image.Image;
@@ -12,20 +13,24 @@ import javafx.util.Duration;
  * Classe gerant un joueur
  *
  */
-public class Player 
+public abstract class Player 
 {
-	  double x;       // position horizontale du joueur
-	  final double y; 	  // position verticale du joueur
-	  double angle = 90; // rotation du joueur, devrait toujour être en 0 et 180
-	  double step;    // pas d'un joueur
-	  String playerColor;
+	  private double x;       // position horizontale du joueur
+	  private final double y; 	  // position verticale du joueur
+	  private double angle = 90; // rotation du joueur, devrait toujour être en 0 et 180
+	  private double step;    // pas d'un joueur
+
+	  private String playerColor;
 	  
-	  // On une image globale du joueur 
-	  Image directionArrow;
-	  Sprite sprite;
-	  ImageView PlayerDirectionArrow;
+	  private boolean visible = true;
 	  
-	  GraphicsContext graphicsContext;
+	  private Image directionArrow;
+	  public Sprite sprite;
+	  private ImageView PlayerDirectionArrow;
+	  
+	  private GraphicsContext graphicsContext;
+	  
+	  private BoundingBox hitbox;
 	  
 	  /**
 	   * Constructeur du Joueur
@@ -34,43 +39,45 @@ public class Player
 	   * @param color couleur du joueur
 	   * @param yInit position verticale
 	   */
-	  Player(GraphicsContext gc, String color, int xInit, int yInit, String side)
+	  Player(GraphicsContext gc, String color, int xInit, int yInit, String side,double speed)
 	  {
 		// Tous les joueurs commencent au centre du canvas, 
-	    x = xInit;               
-	    y = yInit;
-	    graphicsContext = gc;
-	    playerColor=color;
+	    this.x = xInit;               
+	    this.y = yInit;
+	    this.graphicsContext = gc;
+	    this.playerColor=color;
 	    
-	    angle = 0;
+
+	    
+	    this.angle = 0;
 
 	    // On charge la representation du joueur
         if(side=="top"){
-        	directionArrow = new Image("assets/PlayerArrowDown.png");
+        	this.directionArrow = new Image("assets/PlayerArrowDown.png");
 		}
 		else{
-			directionArrow = new Image("assets/PlayerArrowUp.png");
+			this.directionArrow = new Image("assets/PlayerArrowUp.png");
 		}
         
-        PlayerDirectionArrow = new ImageView();
-        PlayerDirectionArrow.setImage(directionArrow);
-        PlayerDirectionArrow.setFitWidth(10);
-        PlayerDirectionArrow.setPreserveRatio(true);
-        PlayerDirectionArrow.setSmooth(true);
-        PlayerDirectionArrow.setCache(true);
+        this.PlayerDirectionArrow = new ImageView();
+        this.PlayerDirectionArrow.setImage(directionArrow);
+        this.PlayerDirectionArrow.setFitWidth(10);
+        this.PlayerDirectionArrow.setPreserveRatio(true);
+        this.PlayerDirectionArrow.setSmooth(true);
+        this.PlayerDirectionArrow.setCache(true);
 
         Image tilesheetImage = new Image("assets/orc.png");
-        sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), side);
-        sprite.setX(x);
-        sprite.setY(y);
+        this.sprite = new Sprite(tilesheetImage, 0,0, Duration.seconds(.2), side);
+        this.sprite.setX(x);
+        this.sprite.setY(y);
         //directionArrow = sprite.getClip().;
 
 	    // Tous les joueurs ont une vitesse aleatoire entre 0.0 et 1.0
         // Random randomGenerator = new Random();
-        // step = randomGenerator.nextFloat();
+        //step = randomGenerator.nextFloat();
 
         // Pour commencer les joueurs ont une vitesse / un pas fixe
-        step = 1;
+        this.step = speed;
 	    
 	  }
 
@@ -79,10 +86,13 @@ public class Player
 	   */
 	  void display()
 	  {
-		  graphicsContext.save(); // saves the current state on stack, including the current transform
-	      rotate(graphicsContext, angle, x + directionArrow.getWidth() / 2, y + directionArrow.getHeight() / 2);
-		  graphicsContext.drawImage(directionArrow, x, y);
-		  graphicsContext.restore(); // back to original state (before rotation)
+		  if(visible) {
+			  this.graphicsContext.save(); // saves the current state on stack, including the current transform
+		      rotate(graphicsContext, angle, x + directionArrow.getWidth() / 2, y + directionArrow.getHeight() / 2);
+		      this.graphicsContext.drawImage(directionArrow, x, y);
+		      spriteAnimate();
+		      this.graphicsContext.restore(); // back to original state (before rotation)
+		  }
 	  }
 
 	  private void rotate(GraphicsContext gc, double angle, double px, double py) {
@@ -96,10 +106,9 @@ public class Player
 	 
 	  void moveLeft() 
 	  {	    
-	    if (x > 10 && x < 520) 
+	    if (this.x > 10 ) 
 	    {
-			spriteAnimate();
-		    x -= step;
+			this.x -= this.step;
 	    }
 	  }
 
@@ -108,10 +117,9 @@ public class Player
 	   */
 	  void moveRight() 
 	  {
-	    if (x > 10 && x < 520) 
+	    if (this.x < 520) 
 	    {
-			spriteAnimate();
-		    x += step;
+			this.x += this.step;
 	    }
 	  }
 
@@ -121,12 +129,12 @@ public class Player
 	   */
 	  void turnLeft() 
 	  {
-	    if (angle > 0 && angle < 180) 
+	    if (this.angle > 0 && this.angle < 180) 
 	    {
-	    	angle += 1;
+	    	this.angle += 1;
 	    }
 	    else {
-	    	angle += 1;
+	    	this.angle += 1;
 	    }
 
 	  }
@@ -137,18 +145,18 @@ public class Player
 	   */
 	  void turnRight() 
 	  {
-	    if (angle > 0 && angle < 180) 
+	    if (this.angle > 0 && this.angle < 180) 
 	    {
-	    	angle -=1;
+	    	this.angle -=1;
 	    }
 	    else {
-	    	angle -= 1;
+	    	this.angle -= 1;
 	    }
 	  }
 
 
 	  void shoot(){
-	  	sprite.playShoot();
+		this.sprite.playShoot();
 	  }
 	  
 	  /**
@@ -156,15 +164,46 @@ public class Player
 	   */
 	  void boost() 
 	  {
-	    x += step*2;
+		  this.x += this.step*2;
 		  spriteAnimate();
 	  }
 
 	  void spriteAnimate(){
 	  	  //System.out.println("Animating sprite");
-		  if(!sprite.isRunning) {sprite.playContinuously();}
-		  sprite.setX(x);
-		  sprite.setY(y);
+		  if(!this.sprite.isRunning) {
+			 this.sprite.playContinuously();
+		  }
+		  this.sprite.setX(x);
+		  this.sprite.setY(y);
 	  }
-	  
+		
+
+		public double getX() {
+			return x;
+		}
+
+
+		public double getY() {
+			return y;
+		}
+		
+		public double getAngle() {
+			return angle;
+		}
+		
+		public void setAngle(double angle) {
+			this.angle = angle;
+		}
+		
+		public boolean isVisible() {
+			return this.visible;
+		}
+		
+		public void setVisible() {
+			visible = false;
+		}
+		
+	  public boolean isEquipe1() {
+		  return y > (Field.height/2);
+	  }
 }

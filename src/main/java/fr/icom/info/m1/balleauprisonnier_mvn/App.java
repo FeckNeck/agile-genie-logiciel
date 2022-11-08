@@ -12,37 +12,72 @@ import javafx.stage.Stage;
  */
 public class App extends Application 
 {
+	public static Field gameField;
+	public static Scene game, menu;
+	public static Group rootGame, rootMenu;
+	public static Menu menuScene;
+	public static Stage stage;
 	
-	/**
-	 * En javafx start() lance l'application
-	 *
-	 * On cree le SceneGraph de l'application ici
-	 * @see http://docs.oracle.com/javafx/2/scenegraph/jfxpub-scenegraph.htm
-	 * 
-	 */
 	@Override
 	public void start(Stage stage) throws Exception 
 	{
+		this.stage = stage;
 		// Nom de la fenetre
         stage.setTitle("BalleAuPrisonnier");
-
-        Group root = new Group();
-        Scene scene = new Scene( root );
-
-        // On cree le terrain de jeu et on l'ajoute a la racine de la scene
-        Field gameField = new Field(scene, 600, 600 );
-        root.getChildren().add( gameField );
-		root.getChildren().add(gameField.getJoueurs()[0].sprite);
-		root.getChildren().add(gameField.getJoueurs()[1].sprite);
-
+        
+        initGame();
+        initMenu();
         // On ajoute la scene a la fenetre et on affiche
-        stage.setScene( scene );
+        stage.setScene(game);
         stage.show();
+	}
+	
+    public static void initGame() {
+        rootGame = new Group();
+        game = new Scene(rootGame);
+        gameField = new Field(game);
+        rootGame.getChildren().add(gameField);
+        initGameField();
+    }
+    
+    private static void initMenu() {
+    	rootMenu = new Group();
+        menu = new Scene(rootMenu);
+        menuScene = new Menu(menu);
+        rootMenu.getChildren().add(menuScene);
+        initMenuScene();
+    }        
+	
+	private static void initGameField() {
+		Player[] players = gameField.concatTable();
+        for(int i = 0 ; i < players.length ; i++) {
+        	rootGame.getChildren().add(players[i].sprite);
+        }
+	}
+	
+	private static void initMenuScene() {
+        rootMenu.getChildren().add(menuScene.getScore());
+        rootMenu.getChildren().add(menuScene.getTitleScore());
+        rootMenu.getChildren().add(menuScene.getkeys());
 	}
 	
     public static void main(String[] args) 
     {
         //System.out.println( "Hello World!" );
     	Application.launch(args);
+    } 
+    
+    public static void displayMenu() {    	
+    	gameField.pause();
+    	
+    	stage.setScene(menu);
+        stage.show();
     }
+    
+    public static void displayGame() {    	
+    	gameField.unpause();
+    	stage.setScene(game);
+        stage.show();
+    }
+    
 }

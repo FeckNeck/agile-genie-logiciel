@@ -17,6 +17,19 @@
     <javafx.version>17.0.0.1</javafx.version>
   </properties>
 
+	<build>
+	  <plugins>
+	    <plugin>
+	      <groupId>org.openjfx</groupId>
+	      <artifactId>javafx-maven-plugin</artifactId>
+	      <version>0.0.8</version>
+	      <configuration>
+	        <mainClass>fr.icom.info.m1.balleauprisonnier_mvn.App</mainClass>
+	      </configuration>
+	    </plugin>
+	  </plugins>
+	</build>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
