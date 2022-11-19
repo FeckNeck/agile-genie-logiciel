@@ -9,12 +9,12 @@ The objective of the project was to realise a dodgeball in JAVA using the librar
 
 ## Build with 
 
-JAVA
+JAVA and JavaFX
 
 ## Installation
 ```
-  Download the project
+Download the project
 ```
 ```
-  Run project with maven configuration (should be default config)
+Run project with maven configuration (should be default config)
 ```
