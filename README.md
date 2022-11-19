@@ -15,3 +15,6 @@ JAVA
 ```
   Download the project
 ```
+```
+  Run project with maven configuration (should be default config)
+```
