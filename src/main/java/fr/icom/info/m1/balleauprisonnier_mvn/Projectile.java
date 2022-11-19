@@ -4,6 +4,9 @@ import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
 
 public class Projectile {
+	
+	private static Projectile instance;
+	
 	private double speed,x,y,angle;
 	private boolean running;
 	private Image ball;
@@ -12,12 +15,19 @@ public class Projectile {
 	private String direction;
 	private static final int size = 30;
 	
-	public Projectile() {
+    private Projectile() {
 		this.ball = new Image("assets/titou.jpg",size,size,false,false);
 		this.speed = 2;
 		this.hitbox = new BoundingBox(x,y,size,size);	
-	}
-	
+    }
+
+    public static Projectile getInstance() {
+        if (instance == null) {
+            instance = new Projectile();
+        }
+        return instance;
+    }
+    
 	public void fire() {
 		this.angle = owner.getAngle();
 		this.running = true;

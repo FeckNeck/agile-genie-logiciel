@@ -155,7 +155,7 @@ public class Field extends Canvas {
 	   	
 	   	equipe2[2] = new IA(gc, colorMap[1], width/4, 20, "top",speed);
 	   	
-	   	projectile = new Projectile();
+        projectile = Projectile.getInstance();
 	   	
 	   	projectile.setOwner(Math.random() < 0.5 ? equipe1[0] : equipe2[0]);
 	   	

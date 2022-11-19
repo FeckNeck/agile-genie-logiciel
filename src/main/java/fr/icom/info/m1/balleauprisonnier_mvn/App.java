@@ -58,12 +58,15 @@ public class App extends Application
 	private static void initMenuScene() {
         rootMenu.getChildren().add(menuScene.getScore());
         rootMenu.getChildren().add(menuScene.getTitleScore());
+        rootMenu.getChildren().add(menuScene.getPress());
+        rootMenu.getChildren().add(menuScene.getRestart());
         rootMenu.getChildren().add(menuScene.getKeys());
         rootMenu.getChildren().add(menuScene.getPlayerUp());
         rootMenu.getChildren().add(menuScene.getPlayerRight());
         rootMenu.getChildren().add(menuScene.getPlayerDown());
         rootMenu.getChildren().add(menuScene.getPlayerLeft());
         rootMenu.getChildren().add(menuScene.getShooting());
+        rootMenu.getChildren().add(menuScene.getR());
         rootMenu.getChildren().add(menuScene.getEchap());
         rootMenu.getChildren().add(menuScene.getSpace());
 	}

@@ -17,8 +17,8 @@ public class Menu extends Canvas{
 	
 	private final GraphicsContext gc;
 	private final Scene scene;
-	private Text score, titleScore;
-	private ImageView keys, arrowUp, arrowDown, playerRight, playerLeft, shooting ,echap, space;
+	private Text score, titleScore, press, restart;
+	private ImageView keys, arrowUp, arrowDown, playerRight, playerLeft, shooting ,echap, space,R;
 	private int scoreEquipe1, scoreEquipe2;
 	
 	public Menu(Scene scene) {
@@ -36,7 +36,7 @@ public class Menu extends Canvas{
 	    	            if(code == "ESCAPE")
 	    	            	App.displayGame();
 	    	            
-	    	            if(code == "M") {
+	    	            if(code == "R") {
 	    	            	App.initGame();
 	    	            	App.displayGame();
 	    	            }
@@ -56,6 +56,14 @@ public class Menu extends Canvas{
 		Font fontTitle = new Font("Serif", 25);
 		titleScore.setFont(fontTitle);
 		titleScore.setFill(Color.BLACK);
+		
+		press = new Text(190, 500, "Press");
+		press.setFont(font);
+		press.setFill(Color.BLACK);
+		
+		restart = new Text(300, 500, "to restart game");
+		restart.setFont(font);
+		restart.setFill(Color.BLACK);
 		
 		Image keysFile = new Image("assets/keys.png",150,150,true,true);
 		keys = new ImageView(keysFile);
@@ -96,6 +104,11 @@ public class Menu extends Canvas{
 		space = new ImageView(spaceFile);
 		space.setX(240);
 		space.setY(350);
+		
+		Image Rfile = new Image("assets/R.png",50,50,true,true);
+		R = new ImageView(Rfile);
+		R.setX(245);
+		R.setY(460);
 
 	}
 	
@@ -113,7 +126,14 @@ public class Menu extends Canvas{
 	public Text getTitleScore() {
 		return titleScore;
 	}
-	
+
+	public Text getPress() {
+		return press;
+	}
+
+	public Text getRestart() {
+		return restart;
+	}
 
 	public ImageView getKeys() {
 		return keys;
@@ -145,6 +165,10 @@ public class Menu extends Canvas{
 
 	public ImageView getSpace() {
 		return space;
+	}
+	
+	public ImageView getR() {
+		return R;
 	}
 	
 }
