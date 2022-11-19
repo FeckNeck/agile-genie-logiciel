@@ -9,4 +9,9 @@ The objective of the project was to realise a dodgeball in JAVA using the librar
 
 ## Build with 
 
-* [![JAVA][java]][Next-url]
+JAVA
+
+## Installation
+```
+  Download the project
+```
