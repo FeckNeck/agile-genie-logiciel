@@ -20,7 +20,7 @@ Download the project
 Configure maven configuration by adding : 
 <li>${workspace_loc:/agile-genie-logiciel} to "Base directoy"</li>
 <li>javafx:run to "Goals"</li>
-<ul>
+</ul>
 ```
 Run project with maven configuration (should be default config)
 ```
