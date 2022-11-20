@@ -16,11 +16,10 @@ JAVA and JavaFX
 Download the project
 ```
 ```
-<ul>
 Configure maven configuration by adding : 
-<li>${workspace_loc:/agile-genie-logiciel} to "Base directoy"</li>
-<li>javafx:run to "Goals"</li>
-</ul>
+  - ${workspace_loc:/agile-genie-logiciel} to "Base directoy"
+  - javafx:run to "Goals"
+```
 ```
 Run project with maven configuration (should be default config)
 ```
