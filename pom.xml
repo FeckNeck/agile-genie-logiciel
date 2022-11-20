@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fr.icom.info.m1.</groupId>
-  <artifactId>balleauprisonnier_mvn</artifactId>
+  <artifactId>agile-genie-logiciel</artifactId>
   <version>0.0.1</version>
   <packaging>jar</packaging>
 
-  <name>balleauprisonnier_mvn</name>
+  <name>agile-genie-logiciel</name>
   <url>http://maven.apache.org</url>
 
   <properties>
